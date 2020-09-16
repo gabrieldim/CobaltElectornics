@@ -1,0 +1,19 @@
+﻿@model CobaltElectronics.Models.AddToCategory
+
+@{
+    ViewBag.Title = "AddToCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Додадете во категорија @ViewBag.Category</h2>
+
+@using (Html.BeginForm("AddToCategory", "Categories"))
+{
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.selectedProizvod, new SelectList(Model.proizvods, "Id", "Ime"),new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+
+    @Html.HiddenFor(m => m.selectedCategory)
+}
+

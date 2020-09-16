@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CobaltElectronics.Models.Proizvod>
+@{
+    ViewBag.Title = "Shopping Cart";
+    Dictionary<int, int> id_quantity = Session["shoppingCart"] as Dictionary<int, int>;
+
+}
+
+<h2>Кошничка</h2>
+<table class="table hover" id="proizvoditabela">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proizvoditel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cena)
+            </th>
+            <th>
+                Количина
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        <a href="/Proizvods/Details/@item.Id"><img src="@item.ImgURL" style="max-width:150px;max-height:150px;" /></a>
+                    </td>
+                    <td>
+                        <a href="/Proizvods/Details/@item.Id">@Html.DisplayFor(modelItem => item.Ime)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Proizvoditel)
+                    </td>
+                    <td>
+                        @item.Cena.ToString("N")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(quantity => id_quantity[item.Id])
+                    </td>
+                    <td>
+                        @Html.ActionLink("Извади од кошничка", // <-- Link text
+                                     "removeFromCart", // <-- Action Method Name
+                                     new { id = item.Id }, // <-- Route value
+                                     new { @class = "btn btn-primary" } // <-- htmlArguments
+                                    )
+                    </td>
+                </tr>
+
+
+            }
+        }
+    </tbody>
+</table>
+<div class="col-md-5">
+
+</div>
+<div class="col-md-4">
+    <a href="/Home/Index" class="btn btn-danger">Назад</a>
+    <button class="btn btn-success">Нарачај</button>
+</div>
+<div>
+    <span style="color:red;font-size:20px;font-weight:bold">Вкупно:</span>
+    @{
+        int suma = 0;
+    }
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            suma += id_quantity[item.Id] * Convert.ToInt32(item.Cena);
+
+        }
+    }
+    <span style="color:red;font-size:20px;font-weight:bold">@suma.ToString("N")</span>
+</div>

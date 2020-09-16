@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    #kategorii {
+        border: 3px solid cornflowerblue;
+        border-radius: 20px;
+        padding-right: 20px;
+    }
+
+    #kategorii li {
+        margin: 0 0 10px 0;
+    }
+
+    #kategorii li a {
+        color: black;
+    }
+
+    #kategorii li a:hover {
+        color: red;
+    }
+    #kategorii li:hover{
+        padding-left:10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-2">
+        <h2>Категории</h2>       
+        <ul id="kategorii">
+            <li><a href="/Home/Index/1">Лаптопи</a></li>
+            <li><a href="/Home/Index/2">Персонални компјутери</a></li>
+            <li><a href="/Home/Index/3">Додатоци за компјутери</a></li>
+            <li><a href="/Home/Index/4">Мобилни телефони</a></li>
+            <li><a href="/Home/Index/5">Таблети</a></li>
+            <li><a href="/Home/Index/6">Телевизија</a></li>
+            <li><a href="/Home/Index/7">Канцеларија</a></li>
+            <li><a href="/Home/Index/8">Софтвер</a></li>
+            <li><a href="/Home/Index/9">GPS - Навигација</a></li>
+            <li><a href="/Home/Index/10">Аудио и опрема</a></li>
+            <li><a href="/Home/Index/11">Алати и помагала</a></li>
+            <li><a href="/Home/Index/12">Здравје и спорт</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        @Html.Partial("ViewProizvods")
+    </div>
+
+    <br /> 
+    <br />
+    <br />
+
+</div>
+
+@section scripts{
+    <script>
+        $("document").ready(function () {
+
+            var table = $('#proizvoditabela').DataTable({
+                "order": [[3, "asc"]],
+                "columns": [
+                    { "orderable": false },
+                    { "orderable": true },
+                    { "orderable": true },
+                    { "orderable": true },
+                    { "orderable": true },
+                    { "orderable": false },
+                ],    
+            });
+            $("#proizvoditabela .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm({
+                    message: "Дали сте сигурни?",
+                    size: 'small',
+                    buttons: {
+                        confirm: {
+                            label: 'Да',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Не',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/ProizvodsApi/" + button.attr("data-listing-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LocalDb</name>
+    </assembly>
+    <members>
+        <member name="M:LocalDb.SqlInstance.Build(System.String,System.String,System.String)">
+            <summary>
+              Build database with a name based on the calling Method.
+            </summary>
+            <param name="testFile">
+            The path to the test class.
+            Used to make the database name unique per test type.
+            </param>
+            <param name="databaseSuffix">
+            For Xunit theories add some text based on the inline data
+            to make the db name unique.
+            </param>
+            <param name="memberName">
+            Used to make the db name unique per method.
+            Will default to the caller method name is used.
+            </param>
+        </member>
+        <member name="M:LocalDb.SqlInstance.Build(System.String)">
+            <summary>
+              Build database with an explicit name.
+            </summary>
+        </member>
+        <member name="M:LocalDb.SqlInstance.BuildWithRollback">
+            <summary>
+              Build DB with a transaction that is rolled back when disposed.
+            </summary>
+        </member>
+        <member name="T:LocalDbLogging">
+            <summary>
+            Controls the logging level.
+            </summary>
+        </member>
+        <member name="M:LocalDbLogging.EnableVerbose(System.Boolean)">
+            <summary>
+            Enable verbose logging to <see cref="M:System.Diagnostics.Trace.WriteLine(System.String)"/>
+            </summary>
+        </member>
+    </members>
+</doc>

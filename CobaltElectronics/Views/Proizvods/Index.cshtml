@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CobaltElectronics.Models.Proizvod>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table" id="proizvoditabela">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImgURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proizvoditel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DaliNaZaliha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImgURL" style="max-width:150px;max-height:150px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvoditel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaliNaZaliha)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#proizvoditabela").DataTable();
+        });
+    </script>
+}

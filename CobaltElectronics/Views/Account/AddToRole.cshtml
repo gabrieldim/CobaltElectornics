@@ -1,0 +1,20 @@
+﻿@model CobaltElectronics.Models.AddToRoleModel
+
+@{
+    ViewBag.Title = "AddToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Додади улога на корисник</h2>
+
+@using (Html.BeginForm("AddToRole", "Account"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.selectedRole, new SelectList(Model.roles), new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Додади</button>
+}

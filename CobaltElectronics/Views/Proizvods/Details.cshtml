@@ -1,0 +1,113 @@
+﻿@model CobaltElectronics.Models.Proizvod
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+
+<a href="/Home/Index" class="btn btn-default">Назад</a>
+@if (User.IsInRole("Moderator"))
+{
+    <a class="btn btn-success" href="/Proizvods/Edit/@Model.Id">Уреди</a>
+}
+<h2 style="font-weight:bolder">@Model.Proizvoditel @Model.Ime</h2>
+<br />
+<div class="col-md-7">
+
+    <dl>
+        <dd>
+            <img src="@Model.ImgURL" style="max-height:450px;max-width:450px;" />
+        </dd>
+    </dl>
+
+</div>
+
+<div class="col-lg-5">
+    <dl>
+        <dt>
+            <span class="displayText">Модел:</span>
+        </dt>
+
+        <dd>
+            <span class="value">@Html.DisplayFor(model => model.Ime)</span>
+        </dd>
+
+        <dt>
+            <span class="displayText">@Html.DisplayNameFor(model => model.Proizvoditel):</span>
+        </dt>
+
+        <dd>
+            <span class="value">@Html.DisplayFor(model => model.Proizvoditel)</span>
+        </dd>
+
+        <dt>
+            <span class="displayText">Достапност:</span>
+        </dt>
+
+        <dd>
+            @if (Model.DaliNaZaliha == true)
+            {
+                <p style="color:green;font-size:20px">&#9989; залиха</p>
+            }
+            @if (Model.DaliNaZaliha == false)
+            {
+                <p style="color:red;font-size:20px">&#10060; залиха</p>
+            }
+        </dd>
+
+        <dt>
+            <span class="displayText">@Html.DisplayNameFor(model => model.Cena):</span>
+        </dt>
+
+        <dd>
+            <span class="value" style="color:red;font-size:40px">@Model.Cena.ToString("N")</span>
+        </dd>
+
+    </dl>
+
+    <div class="col-md-6">
+        @Html.ActionLink("Додади во кошничка", // <-- Link text
+                        "addToCart", // <-- Action Method Name
+                        "Home",
+                        new { id = Model.Id }, // <-- Route value
+                        new { @class = "btn btn-primary" } // <-- htmlArguments
+                        )
+    </div>
+
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="col-md-12">
+    <dl>
+        <dt>
+            <span class="displayText">@Html.DisplayNameFor(model => model.Opis):</span>
+        </dt>
+        <dd>
+            <pre>@Html.DisplayFor(model => model.Opis)</pre>
+        </dd>
+    </dl>
+</div>
+
+<style>
+    .displayText {
+        font-size: 30px;
+        color: cornflowerblue;
+    }
+
+    .value {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    pre {
+        border: none;
+        background: white;
+    }
+</style>

@@ -1,0 +1,37 @@
+﻿@model CobaltElectronics.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Име: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<br />
+<h2>Листа од производи:</h2>
+<ul>
+    @foreach (var item in Model.proizvodi)
+    {
+        <li>
+            <a href="/Proizvods/Details/@item.Id">@item.Ime</a>
+        </li>
+    }
+
+</ul>
+<br />
+<p>
+    @Html.ActionLink("Назад", "Index")
+</p>

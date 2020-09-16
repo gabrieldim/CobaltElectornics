@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CobaltElectronics.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Категории</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Име
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="/Categories/Details/@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+        </td>
+        <td>
+            @Html.ActionLink("Додади производ во категорија", "AddToCategory", new { id = item.Id },new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+}
+
+</table>
